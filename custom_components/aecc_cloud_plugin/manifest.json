@@ -1,0 +1,13 @@
+{
+  "domain": "aecc_cloud_plugin",
+  "name": "AECC Cloud",
+  "codeowners": ["@fufaeff"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/fufaeff/ha-aecc-cloud",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/fufaeff/ha-aecc-cloud/issues",
+  "requirements": [],
+  "version": "1.2.0"
+}

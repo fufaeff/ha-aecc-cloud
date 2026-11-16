@@ -1,0 +1,142 @@
+service_switch_plant:
+  name: Switch Plant
+  description: Switch active monitored plant in AEC Cloud.
+  fields:
+    plant_id:
+      name: Plant ID
+      description: The ID of the plant or family to switch to.
+      required: true
+      example: "12345"
+      selector:
+        text:
+
+switch_plant:
+  name: Switch Plant
+  description: Switch active monitored plant in AEC Cloud.
+  fields:
+    plant_id:
+      name: Plant ID
+      description: The ID of the plant or family to switch to.
+      required: true
+      example: "12345"
+      selector:
+        text:
+
+set_working_mode:
+  name: Set Working Mode
+  description: Set inverter Output Priority (SBU/PBG, SUB/PGB, USB/GPB, MKS) via AEC Cloud.
+  fields:
+    mode:
+      name: Mode
+      description: The priority mode to set for the inverter and battery.
+      required: true
+      example: "SBU (Solar -> Battery -> Utility)"
+      selector:
+        select:
+          options:
+            - "SBU (Solar -> Battery -> Utility)"
+            - "SUB (Solar -> Utility -> Battery)"
+            - "USB (Utility -> Solar -> Battery)"
+            - "MKS (Generator first)"
+    device_sn:
+      name: Device Serial Number
+      description: Optional inverter serial number. If omitted, master/solar inverter SN will be auto-detected.
+      required: false
+      example: "SN12345678"
+      selector:
+        text:
+
+service_set_working_mode:
+  name: Set Working Mode
+  description: Set inverter Output Priority (SBU/PBG, SUB/PGB, USB/GPB, MKS) via AEC Cloud.
+  fields:
+    mode:
+      name: Mode
+      description: The priority mode to set for the inverter and battery.
+      required: true
+      example: "SBU (Solar -> Battery -> Utility)"
+      selector:
+        select:
+          options:
+            - "SBU (Solar -> Battery -> Utility)"
+            - "SUB (Solar -> Utility -> Battery)"
+            - "USB (Utility -> Solar -> Battery)"
+            - "MKS (Generator first)"
+    device_sn:
+      name: Device Serial Number
+      description: Optional inverter serial number. If omitted, master/solar inverter SN will be auto-detected.
+      required: false
+      example: "SN12345678"
+      selector:
+        text:
+
+set_charger_priority:
+  name: Set Charger Source Priority
+  description: Set inverter Charging Priority (CSO/PVF, SNU/PNG, OSO/OPV) via AEC Cloud.
+  fields:
+    mode:
+      name: Mode
+      description: The charging priority mode (CSO/PVF, SNU/PNG, OSO/OPV).
+      required: true
+      example: "CSO (Solar first / Приоритет солнце)"
+      selector:
+        select:
+          options:
+            - "CSO (Solar first / Приоритет солнце)"
+            - "SNU (Solar and Utility / Солнце и сеть)"
+            - "OSO (Only Solar / Только солнце)"
+    device_sn:
+      name: Device Serial Number
+      description: Optional inverter serial number. If omitted, master/solar inverter SN will be auto-detected.
+      required: false
+      example: "SN12345678"
+      selector:
+        text:
+
+service_set_charger_priority:
+  name: Set Charger Source Priority
+  description: Set inverter Charging Priority (CSO/PVF, SNU/PNG, OSO/OPV) via AEC Cloud.
+  fields:
+    mode:
+      name: Mode
+      description: The charging priority mode (CSO/PVF, SNU/PNG, OSO/OPV).
+      required: true
+      example: "CSO (Solar first / Приоритет солнце)"
+      selector:
+        select:
+          options:
+            - "CSO (Solar first / Приоритет солнце)"
+            - "SNU (Solar and Utility / Солнце и сеть)"
+            - "OSO (Only Solar / Только солнце)"
+    device_sn:
+      name: Device Serial Number
+      description: Optional inverter serial number. If omitted, master/solar inverter SN will be auto-detected.
+      required: false
+      example: "SN12345678"
+      selector:
+        text:
+
+set_energy_counter:
+  name: Set Energy Counter
+  description: >-
+    Set a calculated energy sensor (Total Load / Solar / Battery Charge / Battery Discharge Energy)
+    to a given value in kWh, e.g. 0 to reset or the inverter's own lifetime counter to align.
+  target:
+    entity:
+      integration: aecc_cloud_plugin
+      domain: sensor
+      device_class: energy
+  fields:
+    value:
+      name: Value
+      description: New counter value in kWh.
+      required: false
+      default: 0
+      example: 71.63
+      selector:
+        number:
+          min: 0
+          max: 1000000
+          step: 0.001
+          unit_of_measurement: kWh
+          mode: box

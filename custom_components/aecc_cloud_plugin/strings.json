@@ -1,0 +1,116 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "AECC Cloud Login",
+        "description": "Enter your AEC Cloud account credentials.",
+        "data": {
+          "username": "Email / Username",
+          "password": "Password"
+        }
+      },
+      "select_device": {
+        "title": "Select Plant / Family",
+        "description": "Select the plant or family to monitor.",
+        "data": {
+          "devices": "Plant"
+        }
+      }
+    },
+    "error": {
+      "login_error": "Failed to log in. Please check your credentials."
+    },
+    "abort": {
+      "already_configured": "Account is already configured",
+      "device_fetch_error": "Failed to fetch plants/devices."
+    }
+  },
+  "services": {
+    "service_switch_plant": {
+      "name": "Switch Plant",
+      "description": "Switch active monitored plant in AEC Cloud.",
+      "fields": {
+        "plant_id": {
+          "name": "Plant ID",
+          "description": "The ID of the plant or family to switch to."
+        }
+      }
+    },
+    "switch_plant": {
+      "name": "Switch Plant",
+      "description": "Switch active monitored plant in AEC Cloud.",
+      "fields": {
+        "plant_id": {
+          "name": "Plant ID",
+          "description": "The ID of the plant or family to switch to."
+        }
+      }
+    },
+    "set_working_mode": {
+      "name": "Set Working Mode",
+      "description": "Set inverter Output Priority (SBU/PBG, SUB/PGB, USB/GPB, MKS) via AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Mode",
+          "description": "Output priority (SBU/PBG, SUB/PGB, USB/GPB, MKS - generator first)."
+        },
+        "device_sn": {
+          "name": "Device SN",
+          "description": "Optional inverter serial number."
+        }
+      }
+    },
+    "service_set_working_mode": {
+      "name": "Set Working Mode",
+      "description": "Set inverter Output Priority (SBU/PBG, SUB/PGB, USB/GPB, MKS) via AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Mode",
+          "description": "Output priority (SBU/PBG, SUB/PGB, USB/GPB, MKS - generator first)."
+        },
+        "device_sn": {
+          "name": "Device SN",
+          "description": "Optional inverter serial number."
+        }
+      }
+    },
+    "set_charger_priority": {
+      "name": "Set Charger Source Priority",
+      "description": "Set inverter Charging Priority (CSO/PVF, SNU/PNG, OSO/OPV) via AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Mode",
+          "description": "Charging priority (CSO/PVF, SNU/PNG, OSO/OPV)."
+        },
+        "device_sn": {
+          "name": "Device SN",
+          "description": "Optional inverter serial number."
+        }
+      }
+    },
+    "service_set_charger_priority": {
+      "name": "Set Charger Source Priority",
+      "description": "Set inverter Charging Priority (CSO/PVF, SNU/PNG, OSO/OPV) via AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Mode",
+          "description": "Charging priority (CSO/PVF, SNU/PNG, OSO/OPV)."
+        },
+        "device_sn": {
+          "name": "Device SN",
+          "description": "Optional inverter serial number."
+        }
+      }
+    },
+    "set_energy_counter": {
+      "name": "Set Energy Counter",
+      "description": "Set a calculated energy sensor to a value in kWh (0 to reset, or the inverter's lifetime counter to align).",
+      "fields": {
+        "value": {
+          "name": "Value",
+          "description": "New counter value in kWh."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Вход в AECC Cloud",
+        "description": "Введите учетные данные вашей учетной записи AEC Cloud.",
+        "data": {
+          "username": "Email / Имя пользователя",
+          "password": "Пароль"
+        }
+      },
+      "select_device": {
+        "title": "Выбор электростанции / объекта",
+        "description": "Выберите электростанцию или семью для мониторинга.",
+        "data": {
+          "devices": "Электростанция"
+        }
+      }
+    },
+    "error": {
+      "login_error": "Ошибка входа. Проверьте правильность email и пароля."
+    },
+    "abort": {
+      "already_configured": "Эта учетная запись уже настроена",
+      "device_fetch_error": "Не удалось получить список электростанций/устройств."
+    }
+  },
+  "services": {
+    "service_switch_plant": {
+      "name": "Сменить электростанцию",
+      "description": "Переключить активную электростанцию/объект мониторинга в AEC Cloud.",
+      "fields": {
+        "plant_id": {
+          "name": "ID электростанции",
+          "description": "Идентификатор электростанции (plant_id) для переключения."
+        }
+      }
+    },
+    "switch_plant": {
+      "name": "Сменить электростанцию",
+      "description": "Переключить активную электростанцию/объект мониторинга в AEC Cloud.",
+      "fields": {
+        "plant_id": {
+          "name": "ID электростанции",
+          "description": "Идентификатор электростанции (plant_id) для переключения."
+        }
+      }
+    },
+    "set_working_mode": {
+      "name": "Установить режим работы",
+      "description": "Установить приоритет выхода инвертора (SBU/PBG, SUB/PGB, USB/GPB, MKS) через AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Режим",
+          "description": "Приоритет выхода (SBU/PBG, SUB/PGB, USB/GPB, MKS - сначала генератор)."
+        },
+        "device_sn": {
+          "name": "Серийный номер устройства",
+          "description": "Серийный номер инвертора (необязательно, определяется автоматически)."
+        }
+      }
+    },
+    "service_set_working_mode": {
+      "name": "Установить режим работы",
+      "description": "Установить приоритет выхода инвертора (SBU/PBG, SUB/PGB, USB/GPB, MKS) через AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Режим",
+          "description": "Приоритет выхода (SBU/PBG, SUB/PGB, USB/GPB, MKS - сначала генератор)."
+        },
+        "device_sn": {
+          "name": "Серийный номер устройства",
+          "description": "Серийный номер инвертора (необязательно, определяется автоматически)."
+        }
+      }
+    },
+    "set_charger_priority": {
+      "name": "Установить приоритет заряда батареи",
+      "description": "Установить приоритет заряда батареи (CSO/PVF, SNU/PNG, OSO/OPV) через AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Режим заряда",
+          "description": "Приоритет заряда (CSO/PVF, SNU/PNG, OSO/OPV)."
+        },
+        "device_sn": {
+          "name": "Серийный номер устройства",
+          "description": "Серийный номер инвертора (необязательно, определяется автоматически)."
+        }
+      }
+    },
+    "service_set_charger_priority": {
+      "name": "Установить приоритет заряда батареи",
+      "description": "Установить приоритет заряда батареи (CSO/PVF, SNU/PNG, OSO/OPV) через AEC Cloud.",
+      "fields": {
+        "mode": {
+          "name": "Режим заряда",
+          "description": "Приоритет заряда (CSO/PVF, SNU/PNG, OSO/OPV)."
+        },
+        "device_sn": {
+          "name": "Серийный номер устройства",
+          "description": "Серийный номер инвертора (необязательно, определяется автоматически)."
+        }
+      }
+    },
+    "set_energy_counter": {
+      "name": "Установить счётчик энергии",
+      "description": "Задать значение расчётного счётчика энергии в кВт·ч (0 - сброс, или счётчик инвертора для выравнивания).",
+      "fields": {
+        "value": {
+          "name": "Значение",
+          "description": "Новое значение счётчика, кВт·ч."
+        }
+      }
+    }
+  }
+}
