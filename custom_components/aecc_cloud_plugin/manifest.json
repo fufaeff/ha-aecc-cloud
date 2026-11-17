@@ -1,6 +1,7 @@
 {
   "domain": "aecc_cloud_plugin",
   "name": "AECC Cloud",
+  "categories": ["energy.solar_batteries", "energy.backup_power"],
   "codeowners": ["@fufaeff"],
   "config_flow": true,
   "dependencies": [],
