@@ -16,6 +16,9 @@ _LOGGER = logging.getLogger(__name__)
 class AeccSwitch(SwitchEntity):
     """AECC Cloud switch entity."""
 
+    # Friendly name = device name + entity name (added by Home Assistant)
+    _attr_has_entity_name = True
+
     def __init__(self, hass, hub, device, name: str, key: str):
         """Initialize the switch."""
         super().__init__()
@@ -46,7 +49,16 @@ class AeccSwitch(SwitchEntity):
 
     @property
     def name(self) -> str:
-        return f"{self.device.device_sn} {self._name}"
+        return self._name
+
+    @property
+    def device_info(self):
+        return {
+            "identifiers": {(DOMAIN, str(self.device.device_sn))},
+            "name": str(self.device.device_name or self.device.device_sn),
+            "model": str(self.device.icon_type) if self.device.icon_type is not None else "AECC Energy Hub",
+            "manufacturer": "AECC",
+        }
 
     @property
     def available(self) -> bool:

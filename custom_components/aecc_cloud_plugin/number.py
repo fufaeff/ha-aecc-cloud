@@ -37,6 +37,7 @@ async def async_setup_entry(
 class AeccSettingNumber(NumberEntity):
     """Generic numeric inverter setting from /deviceSetConfig/getSettingInfo."""
 
+    _attr_has_entity_name = True
     _attr_should_poll = False
     _attr_mode = NumberMode.BOX
     _attr_native_step = 1
@@ -47,7 +48,7 @@ class AeccSettingNumber(NumberEntity):
         self.device = device
         self.pf = "number"
         self._field = field
-        self._attr_name = f"{device.device_name or device.device_sn} {name}"
+        self._attr_name = name
         self._attr_unique_id = f"aecc_{device.device_sn}_setting_{field.lower()}"
         self._attr_native_unit_of_measurement = unit
         self._attr_native_min_value = vmin

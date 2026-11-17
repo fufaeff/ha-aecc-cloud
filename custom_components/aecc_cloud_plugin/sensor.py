@@ -96,6 +96,9 @@ def total_load_power(data: dict) -> float:
 class AeccSensor(SensorEntity):
     """AECC Cloud sensor entity."""
 
+    # Friendly name = device name + entity name (added by Home Assistant)
+    _attr_has_entity_name = True
+
     def __init__(self, hub: MyIntegrationHub, device, name: str, key: str, unit: str = None):
         super().__init__()
         self.device = device

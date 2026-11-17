@@ -88,7 +88,28 @@ def _install_stubs() -> None:
         SensorDeviceClass=_Enum,
         SensorStateClass=_Enum,
     )
-    _module("homeassistant.const", UnitOfEnergy=_Enum, UnitOfPower=_Enum, Platform=Platform)
+    _module(
+        "homeassistant.const",
+        UnitOfEnergy=_Enum,
+        UnitOfPower=_Enum,
+        Platform=Platform,
+        PERCENTAGE="%",
+        STATE_ON="on",
+        STATE_OFF="off",
+    )
+    _module("homeassistant.helpers.entity", Entity=_Dummy)
+    _module("homeassistant.components.select", SelectEntity=type("SelectEntity", (_Dummy,), {}))
+    _module(
+        "homeassistant.components.number",
+        NumberEntity=type("NumberEntity", (_Dummy,), {}),
+        NumberMode=enum.Enum("NumberMode", "AUTO BOX SLIDER"),
+    )
+    _module(
+        "homeassistant.components.switch",
+        SwitchEntity=type("SwitchEntity", (_Dummy,), {}),
+        SwitchDeviceClass=enum.Enum("SwitchDeviceClass", "OUTLET SWITCH"),
+    )
+    sys.modules["homeassistant.helpers.entity_platform"].AddEntitiesCallback = object
     try:
         import voluptuous  # noqa: F401
     except ImportError:

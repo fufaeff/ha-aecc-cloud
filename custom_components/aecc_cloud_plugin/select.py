@@ -74,7 +74,9 @@ async def async_setup_entry(
 
 
 class AeccWorkingModeSelect(SelectEntity):
-    """AECC Cloud Inverter Working Mode selector (SBU / SUB / USB)."""
+    """AECC Cloud Inverter Working Mode selector (SBU / SUB / USB / MKS)."""
+
+    _attr_has_entity_name = True
 
     def __init__(self, hass: HomeAssistant, hub, device):
         """Initialize the working mode select entity."""
@@ -99,7 +101,7 @@ class AeccWorkingModeSelect(SelectEntity):
 
     @property
     def name(self) -> str:
-        return f"{self.device.device_name or self.device.device_sn} Working Mode"
+        return "Working Mode"
 
     @property
     def current_option(self) -> str:
@@ -163,6 +165,8 @@ class AeccWorkingModeSelect(SelectEntity):
 class AeccPlantSelect(SelectEntity):
     """AECC Cloud Active Plant selector."""
 
+    _attr_has_entity_name = True
+
     def __init__(self, hass: HomeAssistant, hub, device):
         """Initialize the plant select entity."""
         super().__init__()
@@ -188,7 +192,7 @@ class AeccPlantSelect(SelectEntity):
 
     @property
     def name(self) -> str:
-        return f"{self.device.device_name or self.device.device_sn} Active Plant"
+        return "Active Plant"
 
     @property
     def current_option(self) -> str:
@@ -254,7 +258,9 @@ class AeccPlantSelect(SelectEntity):
 
 
 class AeccChargerPrioritySelect(SelectEntity):
-    """AECC Cloud Inverter Charger Source Priority selector (CSO / SNU / OSO / CUT)."""
+    """AECC Cloud Inverter Charger Source Priority selector (CSO / SNU / OSO)."""
+
+    _attr_has_entity_name = True
 
     def __init__(self, hass: HomeAssistant, hub, device):
         """Initialize the charger source priority select entity."""
@@ -279,7 +285,7 @@ class AeccChargerPrioritySelect(SelectEntity):
 
     @property
     def name(self) -> str:
-        return f"{self.device.device_name or self.device.device_sn} Charger Source Priority"
+        return "Charger Source Priority"
 
     @property
     def current_option(self) -> str:
@@ -353,6 +359,7 @@ SETTING_SELECTS = [
 class AeccSettingSelect(SelectEntity):
     """Generic list-type inverter setting from /deviceSetConfig/getSettingInfo."""
 
+    _attr_has_entity_name = True
     _attr_should_poll = False
 
     def __init__(self, hub, device, field: str, name: str, icon: str):
@@ -361,7 +368,7 @@ class AeccSettingSelect(SelectEntity):
         self.device = device
         self.pf = "select"
         self._field = field
-        self._attr_name = f"{device.device_name or device.device_sn} {name}"
+        self._attr_name = name
         self._attr_unique_id = f"aecc_{device.device_sn}_setting_{field.lower()}"
         self._attr_icon = icon
         self._attr_options = []
