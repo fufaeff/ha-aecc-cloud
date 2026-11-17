@@ -29,11 +29,9 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up AECC Cloud number platform from config entry."""
-    device_manager = hass.data.get(DOMAIN, {}).get("device_manager")
-    if device_manager:
-        numbers = device_manager.entities.get("number", [])
-        async_add_entities(numbers)
-        _LOGGER.info(f"Loaded {len(numbers)} AECC Cloud number entities")
+    numbers = hass.data[DOMAIN][config_entry.entry_id].device_manager.entities.get("number", [])
+    async_add_entities(numbers)
+    _LOGGER.info(f"Loaded {len(numbers)} AECC Cloud number entities")
 
 
 class AeccSettingNumber(NumberEntity):

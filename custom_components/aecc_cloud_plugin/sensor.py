@@ -209,7 +209,7 @@ class AeccSensor(SensorEntity):
             self._unit = ""
 
         elif self._key == "plant_name":
-            self._state = self.hass.data[DOMAIN].get('cur_plant_name', '')
+            self._state = self.hub.plant_name
             self._unit = ""
 
         else:
@@ -439,7 +439,7 @@ class AeccCalculatedEnergySensor(AeccSensor, RestoreEntity):
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up AECC Cloud sensor platform from config entry."""
-    sensors = hass.data[DOMAIN]['device_manager'].entities.get("sensor", [])
+    sensors = hass.data[DOMAIN][config_entry.entry_id].device_manager.entities.get("sensor", [])
     async_add_entities(sensors)
 
     platform = entity_platform.async_get_current_platform()

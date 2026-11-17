@@ -21,7 +21,7 @@
       "login_error": "Failed to log in. Please check your credentials."
     },
     "abort": {
-      "already_configured": "Account is already configured",
+      "already_configured": "This account and plant are already configured",
       "device_fetch_error": "Failed to fetch plants/devices."
     }
   },

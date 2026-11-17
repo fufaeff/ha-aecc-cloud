@@ -151,6 +151,6 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up AECC Cloud switch platform from config entry."""
-    switches = hass.data[DOMAIN]['device_manager'].entities.get("switch", [])
+    switches = hass.data[DOMAIN][config_entry.entry_id].device_manager.entities.get("switch", [])
     async_add_entities(switches)
     _LOGGER.info(f"Loaded {len(switches)} AECC Cloud switches")

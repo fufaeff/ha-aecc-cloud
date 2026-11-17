@@ -68,11 +68,9 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up AECC Cloud select platform from config entry."""
-    device_manager = hass.data.get(DOMAIN, {}).get("device_manager")
-    if device_manager:
-        selects = device_manager.entities.get("select", [])
-        async_add_entities(selects)
-        _LOGGER.info(f"Loaded {len(selects)} AECC Cloud select entities")
+    selects = hass.data[DOMAIN][config_entry.entry_id].device_manager.entities.get("select", [])
+    async_add_entities(selects)
+    _LOGGER.info(f"Loaded {len(selects)} AECC Cloud select entities")
 
 
 class AeccWorkingModeSelect(SelectEntity):
@@ -134,11 +132,6 @@ class AeccWorkingModeSelect(SelectEntity):
             "manufacturer": "AECC",
         }
 
-    def select_option(self, option: str) -> None:
-        """Change the selected working mode synchronously."""
-        import asyncio
-        asyncio.run_coroutine_threadsafe(self.async_select_option(option), self.hass.loop).result()
-
     async def async_select_option(self, option: str) -> None:
         """Change the selected working mode."""
         if option not in self._attr_options:
@@ -183,7 +176,7 @@ class AeccPlantSelect(SelectEntity):
         self._available = True
         self._attr_icon = "mdi:solar-power"
 
-        cur_name = self.hass.data.get(DOMAIN, {}).get("cur_plant_name") or str(self.hub.senceId)
+        cur_name = self.hub.plant_name or str(self.hub.senceId)
         self._current_option = cur_name
         self._attr_options = [cur_name]
 
@@ -232,7 +225,7 @@ class AeccPlantSelect(SelectEntity):
             plant_id = option
 
         self.hub.senceId = str(plant_id)
-        self.hass.data.setdefault(DOMAIN, {})["cur_plant_name"] = str(option)
+        self.hub.plant_name = str(option)
         self._current_option = option
         self.async_write_ha_state()
 
@@ -247,7 +240,7 @@ class AeccPlantSelect(SelectEntity):
             if name and name not in opts:
                 opts.append(name)
 
-        cur_name = self.hass.data.get(DOMAIN, {}).get("cur_plant_name")
+        cur_name = self.hub.plant_name
         if cur_name and cur_name not in opts:
             opts.insert(0, cur_name)
 
@@ -316,11 +309,6 @@ class AeccChargerPrioritySelect(SelectEntity):
             "model": str(self.device.icon_type) if self.device.icon_type is not None else "AECC Energy Hub",
             "manufacturer": "AECC",
         }
-
-    def select_option(self, option: str) -> None:
-        """Change the selected charger priority mode synchronously."""
-        import asyncio
-        asyncio.run_coroutine_threadsafe(self.async_select_option(option), self.hass.loop).result()
 
     async def async_select_option(self, option: str) -> None:
         """Change the selected charger priority mode."""

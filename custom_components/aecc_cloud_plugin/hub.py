@@ -10,7 +10,7 @@ from typing import Any, Optional
 import aiohttp
 from aiohttp import ContentTypeError
 
-from .const import DOMAIN, BASE_URL, API_URL
+from .const import BASE_URL, API_URL
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.event import async_track_time_interval
@@ -66,9 +66,14 @@ def _resp_summary(resp: Any) -> str:
     return f"{type(resp).__name__}"
 
 
+def is_md5(value: str) -> bool:
+    """True if value already looks like an MD5 hex digest."""
+    return len(value) == 32 and all(c in "0123456789abcdefABCDEF" for c in value)
+
+
 def md5_hash(password: str) -> str:
     """Return an MD5 hash for the given password if not already hashed."""
-    if len(password) == 32 and all(c in '0123456789abcdefABCDEF' for c in password):
+    if is_md5(password):
         return password.lower()
     hasher = hashlib.md5()
     hasher.update(password.encode('utf-8'))
@@ -90,6 +95,9 @@ class MyIntegrationHub:
         self.device_data: dict[str, Any] = {}
         self.plants = []
         self.settings_info: dict[str, dict] = {}
+        # Per config entry: set by async_setup_entry
+        self.device_manager = None
+        self.plant_name: str = str(senceId)
         self._ai_cache: Optional[dict] = None
         self._ai_ts = 0.0
         self._login_lock = asyncio.Lock()
@@ -224,12 +232,10 @@ class MyIntegrationHub:
         try:
             await self.getPlantVos()
             new_data = await self.getHomeCountData()
-            devices_manager = self.hass.data[DOMAIN]['device_manager']
-
             # Query detailed device data by SN (each SN only once per cycle:
             # the master device often shares its SN with the storage device)
             fetched_sns = set()
-            for device in devices_manager.devices:
+            for device in getattr(self.device_manager, "devices", []):
                 if device.type != -1:
                     if device.device_sn in fetched_sns:
                         continue

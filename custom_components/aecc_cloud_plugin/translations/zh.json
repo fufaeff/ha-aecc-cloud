@@ -1,21 +1,116 @@
 {
-    "config": {
-        "abort": {
-            "already_configured": "已配置"
-        },
-        "error": {
-            "cannot_connect": "网络无法连接",
-            "invalid_auth": "用户认证无效",
-            "unknown": "未知错误"
-        },
-        "step": {
-            "user": {
-                "data": {
-                    "host": "主机地址",
-                    "password": "密码",
-                    "username": "用户名"
-                }
-            }
+  "config": {
+    "step": {
+      "user": {
+        "title": "AECC Cloud 登录",
+        "description": "请输入 AEC Cloud 账号信息。",
+        "data": {
+          "username": "邮箱 / 用户名",
+          "password": "密码"
         }
-   }
+      },
+      "select_device": {
+        "title": "选择电站 / 家庭",
+        "description": "选择要监控的电站或家庭。",
+        "data": {
+          "devices": "电站"
+        }
+      }
+    },
+    "error": {
+      "login_error": "登录失败，请检查账号和密码。"
+    },
+    "abort": {
+      "already_configured": "该账号和电站已配置",
+      "device_fetch_error": "获取电站/设备列表失败。"
+    }
+  },
+  "services": {
+    "service_switch_plant": {
+      "name": "切换电站",
+      "description": "切换 AEC Cloud 中当前监控的电站。",
+      "fields": {
+        "plant_id": {
+          "name": "电站 ID",
+          "description": "要切换到的电站或家庭 ID。"
+        }
+      }
+    },
+    "switch_plant": {
+      "name": "切换电站",
+      "description": "切换 AEC Cloud 中当前监控的电站。",
+      "fields": {
+        "plant_id": {
+          "name": "电站 ID",
+          "description": "要切换到的电站或家庭 ID。"
+        }
+      }
+    },
+    "set_working_mode": {
+      "name": "设置工作模式",
+      "description": "通过 AEC Cloud 设置逆变器输出优先级 (SBU/PBG, SUB/PGB, USB/GPB, MKS)。",
+      "fields": {
+        "mode": {
+          "name": "模式",
+          "description": "输出优先级 (SBU/PBG, SUB/PGB, USB/GPB, MKS - 发电机优先)。"
+        },
+        "device_sn": {
+          "name": "设备序列号",
+          "description": "可选，逆变器序列号。"
+        }
+      }
+    },
+    "service_set_working_mode": {
+      "name": "设置工作模式",
+      "description": "通过 AEC Cloud 设置逆变器输出优先级 (SBU/PBG, SUB/PGB, USB/GPB, MKS)。",
+      "fields": {
+        "mode": {
+          "name": "模式",
+          "description": "输出优先级 (SBU/PBG, SUB/PGB, USB/GPB, MKS - 发电机优先)。"
+        },
+        "device_sn": {
+          "name": "设备序列号",
+          "description": "可选，逆变器序列号。"
+        }
+      }
+    },
+    "set_charger_priority": {
+      "name": "设置充电优先级",
+      "description": "通过 AEC Cloud 设置充电优先级 (CSO/PVF, SNU/PNG, OSO/OPV)。",
+      "fields": {
+        "mode": {
+          "name": "模式",
+          "description": "充电优先级 (CSO/PVF, SNU/PNG, OSO/OPV)。"
+        },
+        "device_sn": {
+          "name": "设备序列号",
+          "description": "可选，逆变器序列号。"
+        }
+      }
+    },
+    "service_set_charger_priority": {
+      "name": "设置充电优先级",
+      "description": "通过 AEC Cloud 设置充电优先级 (CSO/PVF, SNU/PNG, OSO/OPV)。",
+      "fields": {
+        "mode": {
+          "name": "模式",
+          "description": "充电优先级 (CSO/PVF, SNU/PNG, OSO/OPV)。"
+        },
+        "device_sn": {
+          "name": "设备序列号",
+          "description": "可选，逆变器序列号。"
+        }
+      }
+    },
+    "set_energy_counter": {
+      "name": "设置电量计数器",
+      "description": "将计算电量传感器设为指定值 (kWh)，0 为清零，或与逆变器累计电量对齐。",
+      "fields": {
+        "value": {
+          "name": "数值",
+          "description": "新的计数值 (kWh)。"
+        }
+      }
+    }
+  }
 }

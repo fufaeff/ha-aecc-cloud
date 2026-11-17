@@ -29,9 +29,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             try:
+                username = user_input['username'].strip()
                 hash_pwd = self.md5_hash(user_input['password'])
-                await self._login(user_input['username'], hash_pwd)
-                self.data.update(user_input)
+                await self._login(username, hash_pwd)
+                # Store only the MD5 hash: it is all the cloud needs
+                self.data.update({"username": username, "password": hash_pwd})
                 return await self.async_step_select_device()
             except Exception as err:
                 _LOGGER.error(f"Login error: {err}")
@@ -50,6 +52,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             selected_device_id = user_input["devices"]
             selected_device_name = self.devices[selected_device_id]
+
+            # One entry per account + plant
+            await self.async_set_unique_id(f"{self.data['username'].lower()}_{selected_device_id}")
+            self._abort_if_unique_id_configured()
+
             self.data.update({
                 "selected_device_id": selected_device_id,
                 "selected_device_name": selected_device_name

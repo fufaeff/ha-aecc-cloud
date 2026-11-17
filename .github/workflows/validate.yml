@@ -28,7 +28,7 @@ jobs:
       - uses: home-assistant/actions/hassfest@master
 
   python:
-    name: Python syntax
+    name: Python syntax and tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,3 +36,5 @@ jobs:
         with:
           python-version: "3.13"
       - run: python -m compileall -q custom_components
+      - run: pip install pytest
+      - run: python -m pytest
